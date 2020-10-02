@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import PropTypes from 'prop-types'; 
+import Table from 'react-bootstrap/Table';
 
 const GuessedWords = ({ guessedWords }) => {
     let contents; 
@@ -20,14 +21,17 @@ const GuessedWords = ({ guessedWords }) => {
         contents = (
             <div data-test="guessed-words">
                 <h3>Guessed Words</h3>
-                <table>
+                <Table striped bordered hover>
                     <thead>
-                        <tr><th>Guessed</th><th>Matching Letters</th></tr>
+                        <tr>
+                            <th>Guessed</th>
+                            <th>Matching Letters</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {guessedWordsRows}
                     </tbody>
-                </table>
+                </Table>
             </div>
         )
     }

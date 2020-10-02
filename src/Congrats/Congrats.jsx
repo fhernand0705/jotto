@@ -1,12 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import Alert from 'react-bootstrap/Alert';
 
 const Congrats = ({ success }) => {
     return (
         <> 
             {success ? 
                 <div data-test="congrats-message">
-                    Congratulations! You guessed the word!
+                    <Alert variant="success">
+                        Congratulations! You guessed the word!
+                    </Alert>
                 </div> : 
                 <div data-test="congrats-component"></div> 
             } 
