@@ -3,7 +3,7 @@ import rootReducer from '../src/reducers';
 import { createStore } from 'redux';
 
 export const storeFactory = (initialState) => {
-    return createStore(rootReducer);
+    return createStore(rootReducer, initialState);
 }
 
 export const findByTestAttr = (wrapper, val) => {
