@@ -43,18 +43,34 @@ describe("renders", () => {
     })
 
     describe("word has been guessed", () => {
-        test("render component without errors", () => {
-            
-        })
-        test("does not render input field", () => {
+        let wrapper; 
 
+        beforeEach(() => {
+            const initialState = { success: true };
+            wrapper = setup(initialState);
         })
+
+        afterEach(() => {
+            wrapper.unmount()
+        })
+
+        test("render component without errors", () => {
+            const component = findByTestAttr(wrapper, 'component-input');
+            expect(component.length).toBe(1);
+        })
+
+        test("does not render input field", () => {
+            const inputField = findByTestAttr(wrapper, 'input-field');
+            expect(inputField.length).toBe(0);
+        })
+
         test("does not render submit button", () => {
-            
+            const submitButton = findByTestAttr(wrapper, 'submit-button');
+            expect(submitButton.length).toBe(0);    
         })
     })
 });
 
 describe("updates state", () => {
-
+    
 });
