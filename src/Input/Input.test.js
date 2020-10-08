@@ -1,17 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Provider }  from 'react-redux';
+import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from '../../test/testUtils';
 import Input from './Input';
 
 const setup = (initialState={}) => {
     const store = storeFactory(initialState);
-    const wrapper = mount(<Provider store={store}><Input /></Provider>);
+    const wrapper = shallow(<Input store={store}/>).dive().dive();
     return wrapper; 
 }
-
-setup()
 
 describe("renders", () => {
     describe("word has not been guessed", () => {
@@ -21,10 +18,6 @@ describe("renders", () => {
             const initialState = { success: false };
             wrapper = setup(initialState);
         })
-
-        afterEach(() => {
-            wrapper.unmount()
-        })
         
         test("render component without errors", () => {
             const component = findByTestAttr(wrapper, 'component-input');
@@ -33,12 +26,12 @@ describe("renders", () => {
 
         test("renders input field", () => {
             const inputField = findByTestAttr(wrapper, 'input-field');
-            expect(inputField.length).toBe(2);
+            expect(inputField.length).toBe(1);
         })
 
         test("renders submit button", () => {
             const submitButton = findByTestAttr(wrapper, 'submit-button');
-            expect(submitButton.length).toBe(2);
+            expect(submitButton.length).toBe(1);
         })
     })
 
@@ -48,10 +41,6 @@ describe("renders", () => {
         beforeEach(() => {
             const initialState = { success: true };
             wrapper = setup(initialState);
-        })
-
-        afterEach(() => {
-            wrapper.unmount()
         })
 
         test("render component without errors", () => {
@@ -71,6 +60,19 @@ describe("renders", () => {
     })
 });
 
-describe("updates state", () => {
-    
+describe("redux props", () => {
+    test("has success piece of state as a prop", () => {
+        const success = true; 
+        const wrapper = setup({ success });
+        const successProp = wrapper.instance().props.success;
+        
+        expect(successProp).toBe(success)
+    })
+
+    test("`guessWord` action creator is a function prop", () => {
+        const wrapper = setup();
+        const guessWordProp = wrapper.instance().props.guessWord
+
+        expect(guessWordProp).toBeInstanceOf(Function)
+    })
 });
