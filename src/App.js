@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Container  from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { getSecretWord } from './actions';
+
 import GuessedWords from './GuessedWords/GuessWords';
 import Congrats from './Congrats/Congrats';
+import Input from './Input/Input';
 
-function App() {
-  const props = [{ guessedWord: 'train', letterMatchCount: 2}]
+ class App extends Component {
+  render() {
+    return (
+      <Container fluid="lg">
+        <h1>Jotto</h1>
+        <Row>
+          <Col><Congrats success={this.props.success}/></Col>
+        </Row>
+        <Row>
+          <Col><Input /></Col>
+        </Row>
+        <Row>
+          <Col md={6}><GuessedWords guessedWords={this.props.guessedWords}/></Col>
+        </Row>
+      </Container>
+    );
+  } 
 
-  return (
-    <Container fluid="lg">
-      <h1>Jotto</h1>
-      <Row>
-        <Col><Congrats success={false}/></Col>
-      </Row>
-      <Row>
-        <Col md={6}><GuessedWords guessedWords={props}/></Col>
-      </Row>
-    </Container>
-  );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return state; 
+}
+
+export default connect(mapStateToProps, { getSecretWord })(App);
